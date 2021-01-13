@@ -1,26 +1,25 @@
-const http = require ('http');
-const hostname = '127.0.0.1';
-const port = 8080;
+const http = require ('http')
+const hostname = '127.0.0.1'
+const port = 8080
 
-// const mysql = require('mysql');
-// const db = require('./module');
+var express = require('express')
+var app = express()
+var bodyParser = require('body-parser')
+const path = require('path')
 
-const express = require('express');
-const app = express();
-
-const router = require('./routes');
+const router = require('./routes/routes')
 
 // Express
 app.listen(port);
-app.use('/api', router);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', router);
+
+
 
 // Routes
 app.get('/', function(req, res) {
-  res.send('Welcome to homepage')
-});
-app.post('/post-test', (req, res) => {
-    console.log('Got body:', req.body);
-    res.sendStatus(200);
+  res.sendFile(path.join(__dirname+'/views/home.html'));
 });
 
 
@@ -28,10 +27,9 @@ app.post('/post-test', (req, res) => {
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  // res.end('Hello World');
   res.end();
 });
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://localhost:${port}/`);
 });

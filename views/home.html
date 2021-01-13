@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homepage</title>
+  </head>
+  <body>
+    <form action="/api" autocomplete="on" method="POST">
+      <label for="email">Email</label><br>
+      <input type="text" id="email" name="email"><br>
+      <label for="password">Password</label><br>
+      <input type="text" id="password" name="password"><br><br>
+      <input type="submit" value="Submit"><br><br>
+    </form>
+    <form action="/api" method="GET">
+      <table>
+        <tr>
+          <td>Email: </td>
+          <td><input type="email" name="email" required></td>
+        </tr>
+        <tr>
+          <td>Password: </td>
+          <td><input type="password" name="password" required></td>
+        </tr>
+      </table><br>
+      <input type="submit" value="Submit"><br>
+    </form>
+  </body>
+</html>

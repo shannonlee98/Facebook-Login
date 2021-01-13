@@ -10,3 +10,8 @@ CREATE TABLE mydb.user
     password NVARCHAR(255) NOT NULL
     -- specify more columns here
 );
+
+-- Insert rows into table 'user'
+INSERT INTO user ( username, email, password )
+VALUES ( 'test', 'test@gmail.com', 'asdf1234' ),
+        ( 'user', 'user@gmail.com', 'asdf1234' );

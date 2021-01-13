@@ -4,7 +4,8 @@
   "description": "",
   "main": "module.js",
   "dependencies": {
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "express": "latest"
   },
   "devDependencies": {},
   "scripts": {

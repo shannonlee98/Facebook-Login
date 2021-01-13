@@ -1,19 +1,37 @@
-const mysql = require('mysql');
-const db = require('./module')
+const http = require ('http');
+const hostname = '127.0.0.1';
+const port = 8080;
 
-var con = mysql.createConnection({
-    host: db.host,
-    user: db.user,
-    password: db.password,
-    database: db.database
+// const mysql = require('mysql');
+// const db = require('./module');
+
+const express = require('express');
+const app = express();
+
+const router = require('./routes');
+
+// Express
+app.listen(port);
+app.use('/api', router);
+
+// Routes
+app.get('/', function(req, res) {
+  res.send('Welcome to homepage')
+});
+app.post('/post-test', (req, res) => {
+    console.log('Got body:', req.body);
+    res.sendStatus(200);
 });
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    var sql = "select name, address from customers";
-    con.query(sql, function (err, result, fields) {
-      if (err) throw err;
-      console.log(fields);
-    });
-  });
+
+// Server
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  // res.end('Hello World');
+  res.end();
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});

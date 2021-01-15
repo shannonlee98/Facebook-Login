@@ -3,6 +3,8 @@ const router = express.Router();
 
 const signup = require('../handlers/postHandler').signupHandler
 const login = require('../handlers/postHandler').loginHandler
+const postMessage = require('../handlers/messageHandler').postMessageHandler
+const showTable = require('../handlers/messageHandler').getMessageHandler
 
 router.use(function(req, res, next){
   req.app.locals.message = ''
@@ -27,5 +29,9 @@ router.get('/profile', (req, res) => {
 router.get('/logout', (req, res) => {
   res.redirect('/')
 })
+
+router.get('/message', (req, res) => res.render('message'))
+router.post('/message', (req, res) => postMessage(req, res))
+router.get('/table', (req, res) => showTable(req, res))
 
 module.exports = router

@@ -15,3 +15,18 @@ CREATE TABLE mydb.user
 INSERT INTO user ( username, email, password )
 VALUES ( 'test', 'test@gmail.com', 'asdf1234' ),
         ( 'user', 'user@gmail.com', 'asdf1234' );
+
+
+-- Create a new table called 'users' in schema 'mydb'
+-- Drop the table if it already exists
+-- IF OBJECT_ID('mydb.user', 'U') IS NOT NULL
+DROP TABLE IF EXISTS mydb.messages;
+-- Create the table in the specified schema
+CREATE TABLE mydb.messages
+(
+    userId INT AUTO_INCREMENT PRIMARY KEY, -- primary key column
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR (255) NOT NULL,
+    message VARCHAR(255) NOT NULL
+    -- specify more columns here
+);

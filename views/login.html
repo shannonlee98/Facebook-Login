@@ -16,6 +16,10 @@
 
 	<h1><span class="fa fa-sign-in"></span> Login</h1>
 
+	<% if (locals.message) { %>
+	  <div class="alert alert-danger"><%= locals.message %></div>
+	<% } %>
+
 	<!-- LOGIN FORM -->
 	<form action="/login" method="post">
 		<div class="form-group">

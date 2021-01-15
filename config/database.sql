@@ -5,9 +5,13 @@ DROP TABLE IF EXISTS mydb.user;
 -- Create the table in the specified schema
 CREATE TABLE mydb.user
 (
-    userId INT AUTO_INCREMENT PRIMARY KEY, -- primary key column
-    email NVARCHAR (255) NOT NULL,
-    password NVARCHAR(255) NOT NULL
+    userid INT AUTO_INCREMENT PRIMARY KEY, -- primary key column
+    email VARCHAR (255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    FBemail VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    birthday VARCHAR(255) NOT NULL,
     -- specify more columns here
 );
 

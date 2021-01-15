@@ -77,34 +77,20 @@ function loginHandler(req, res) {
   }
 }
 
-// function facebookHandler (req, res) {
-//   FB.init({
-//     appId      : '1068263940305894',
-//     cookie     : true,
-//     xfbml      : true,
-//     version    : 'v9.0'
-//   });
-    
-//   FB.AppEvents.logPageView(); 
-//   FB.getLoginStatus(function(response) {
-//     statusChangeCallback(response);
-//     console.log(response)
-//   });
-  
-// }
-
 async function oauthHandler (req, res) {
-  console.log('oauth')
   try {
     const authCode = req.query.code;
+    var client_id = '1068263940305894'
+    var client_secret = '7ae2ad17d7aa2ee02172bc4e4bf58513'
+    var redirect_uri = 'http://localhost:8080/oauth-redirect'
 
     // Build up the URL for the API request. `client_id`, `client_secret`,
     // `code`, **and** `redirect_uri` are all required. And `redirect_uri`
     // must match the `redirect_uri` in the dialog URL from Route 1.
     const accessTokenUrl = 'https://graph.facebook.com/v6.0/oauth/access_token?' +
-      `client_id=1068263940305894&` +
-      `client_secret=7ae2ad17d7aa2ee02172bc4e4bf58513&` +
-      `redirect_uri=${encodeURIComponent('http://localhost:8080/oauth-redirect')}&` +
+      `client_id=${client_id}&` +
+      `client_secret=${client_secret}&` +
+      `redirect_uri=${encodeURIComponent(redirect_uri)}&` +
       `code=${encodeURIComponent(authCode)}`;
 
     // Make an API request to exchange `authCode` for an access token
@@ -121,7 +107,6 @@ async function oauthHandler (req, res) {
 }
 
 async function getMeHandler (req, res) {
-  console.log("getMe")
   try {
     const accessToken = req.query.accessToken;
     if (!accessTokens.has(accessToken)) {
@@ -133,11 +118,13 @@ async function getMeHandler (req, res) {
     const data = await axios.get(`https://graph.facebook.com/me?access_token=${encodeURIComponent(accessToken)}`).
       then(res => res.data);
 
-    return res.send(`
-      <html>
-        <body>Your name is ${data.name}</body>
-      </html>
-    `);
+    res.redirect('/profile')
+
+    // return res.send(`
+    //   <html>
+    //     <body>Your name is ${data.name}</body>
+    //   </html>
+    // `);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.response.data || err.message });

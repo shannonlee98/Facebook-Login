@@ -6,16 +6,16 @@ DROP TABLE IF EXISTS mydb.user;
 CREATE TABLE mydb.user
 (
     userid INT AUTO_INCREMENT PRIMARY KEY, -- primary key column
-    email VARCHAR (255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    FBemail VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL,
-    gender VARCHAR(10) NOT NULL,
-    birthday VARCHAR(255) NOT NULL,
+    email VARCHAR (255),
+    password VARCHAR(255),
+    FBemail VARCHAR(255),
+    username VARCHAR(255),
+    gender VARCHAR(10),
+    birthday VARCHAR(255)
     -- specify more columns here
 );
 
 -- Insert rows into table 'user'
 INSERT INTO user ( username, email, password )
-VALUES ( 'test', 'test@gmail.com', 'asdf1234' ),
-        ( 'user', 'user@gmail.com', 'asdf1234' );
+VALUES ( 'test', 'test@gmail.com', '1234' ),
+        ( 'user', 'user@gmail.com', '1234' );

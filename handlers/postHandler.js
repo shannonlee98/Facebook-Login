@@ -1,8 +1,13 @@
 const con = require('../config/database')
+const https = require('https');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const axios = require('axios');
 const accessTokens = new Set();
+const {FB, FacebookApiException} = require('fb');
+var client_id = '1068263940305894'
+var client_secret = '7ae2ad17d7aa2ee02172bc4e4bf58513'
+var redirect_uri = 'http://localhost:8080/oauth-redirect'
 
 function signupHandler(req, res) {
   var email = req.body.email
@@ -80,26 +85,24 @@ function loginHandler(req, res) {
 async function oauthHandler (req, res) {
   try {
     const authCode = req.query.code;
-    var client_id = '1068263940305894'
-    var client_secret = '7ae2ad17d7aa2ee02172bc4e4bf58513'
-    var redirect_uri = 'http://localhost:8080/oauth-redirect'
 
     // Build up the URL for the API request. `client_id`, `client_secret`,
     // `code`, **and** `redirect_uri` are all required. And `redirect_uri`
     // must match the `redirect_uri` in the dialog URL from Route 1.
     const accessTokenUrl = 'https://graph.facebook.com/v6.0/oauth/access_token?' +
-      `client_id=${client_id}&` +
-      `client_secret=${client_secret}&` +
-      `redirect_uri=${encodeURIComponent(redirect_uri)}&` +
-      `code=${encodeURIComponent(authCode)}`;
-
+                            `client_id=${client_id}` +
+                            `&redirect_uri=${redirect_uri}` +
+                            `&client_secret=${client_secret}` +
+                            `&code=${authCode}`;
+    
     // Make an API request to exchange `authCode` for an access token
-    const accessToken = await axios.get(accessTokenUrl).then(res => res.data['access_token']);
+    const accessToken = await axios.get(accessTokenUrl).then(res => res.data.access_token);
     // Store the token in memory for now. Later we'll store it in the database.
     console.log('Access token is', accessToken);
     accessTokens.add(accessToken);
 
-    res.redirect(`/me?accessToken=${encodeURIComponent(accessToken)}`);
+
+    res.redirect(`/me?accessToken=${accessToken}`);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.response.data || err.message });
@@ -113,18 +116,22 @@ async function getMeHandler (req, res) {
       throw new Error(`Invalid access token "${accessToken}"`);
     }
 
+
     // Get the name and user id of the Facebook user associated with the
     // access token.
-    const data = await axios.get(`https://graph.facebook.com/me?access_token=${encodeURIComponent(accessToken)}`).
-      then(res => res.data);
 
+    const { data } = await axios({
+      url: 'https://graph.facebook.com/me',
+      method: 'get',
+      params: {
+        fields: ['id', 'email', 'first_name', 'last_name', 'birthday', 'gender'].join(','),
+        access_token: accessToken,
+      },
+    });
+    console.log(data); // { id, email, first_name, last_name, birthday, gender }
+
+    req.session.user = data
     res.redirect('/profile')
-
-    // return res.send(`
-    //   <html>
-    //     <body>Your name is ${data.name}</body>
-    //   </html>
-    // `);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.response.data || err.message });
@@ -135,7 +142,6 @@ async function getMeHandler (req, res) {
 module.exports = {
   signupHandler,
   loginHandler,
-  // facebookHandler,
   oauthHandler,
   getMeHandler
 }

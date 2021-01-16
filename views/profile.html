@@ -26,7 +26,6 @@
 
 					<p>
 						<strong>userid:</strong> <%= user.userid %><br>
-						<!-- <strong>name:</strong> <%= user.username %><br> -->
 						<strong>email:</strong>: <%= user.email %><br>
 					</p>
 
@@ -39,10 +38,11 @@
 				<h3><span class="fa fa-facebook"></span> Facebook</h3>
 
 					<p>
-						<!-- <strong>id</strong>:  <br>-->
-						<!-- <strong>token</strong>: <br> -->
-						<!-- <strong>email</strong>: <br> -->
-						<!-- <strong>name</strong>:  -->
+						<strong>id</strong>: <%= user.id %><br>
+						<strong>email</strong>: <%= user.email %><br>
+						<strong>name</strong>:  <%= user.first_name %> <%= user.last_name %><br>
+						<strong>birthday</strong>: <%= user.birthday %><br>
+						<strong>gender</strong>: <%= user.gender %><br>
 					</p>
 
 			</div>

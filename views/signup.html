@@ -9,24 +9,13 @@
     </style>
   </head>
   <body>
-    <script>
-      function myFunction() {
-        // var y = true;
-        var x = document.getElementById("flash");
-        // if (y) {
-          x.style.display = "block";
-        // } else {
-        //   x.style.display = "none";
-        // }
-      }
-    </script>
     <div class="container">
         <div class="col-sm-6 col-sm-offset-3">
 
             <h1><span class="fa fa-sign-in"></span> Signup</h1>
 
-            <% if (locals.message) { %>
-              <div class="alert alert-danger"><%= locals.message %></div>
+            <% if (message) { %>
+              <div class="alert alert-danger"><%= message %></div>
             <% } %>
 
             <!-- LOGIN FORM -->

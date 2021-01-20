@@ -8,9 +8,8 @@
       body 		{ padding-top:80px; }
     </style>
     <script>
-      var facebookLoginURL = "https://www.facebook.com/v9.0/dialog/oauth?client_id=1068263940305894&redirect_uri=http://localhost:8080/oauth-redirect"
       function loadVar() {
-        location.href = facebookLoginURL
+        location.href = '<%- facebookLoginURL %>'
       }
     </script>
   </head>

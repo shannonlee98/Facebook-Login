@@ -38,4 +38,8 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
+router.get('/message', (req, res) => res.render('message'))
+router.post('/message', (req, res) => postMessage(req, res))
+router.get('/table', (req, res) => showTable(req, res))
+
 module.exports = router

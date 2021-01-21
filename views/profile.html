@@ -25,9 +25,8 @@
 				<h3><span class="fa fa-user"></span> Local</h3>
 
 					<p>
-						<strong>userid:</strong> <%= user.userId %><br>
-						<strong>name:</strong> <%= user.username %><br>
-						<strong>email:</strong>: <%= user.email %><br>
+						<strong>userid:</strong> <%= user.userid %><br>
+						<strong>email:</strong>: <%= user.localEmail %><br>
 					</p>
 
 			</div>
@@ -39,10 +38,10 @@
 				<h3><span class="fa fa-facebook"></span> Facebook</h3>
 
 					<p>
-						<!-- <strong>id</strong>:  <br>-->
-						<!-- <strong>token</strong>: <br> -->
-						<!-- <strong>email</strong>: <br> -->
-						<!-- <strong>name</strong>:  -->
+						<strong>email</strong>: <%= user.email %><br>
+						<strong>name</strong>:  <%= user.username %><br>
+						<strong>birthday</strong>: <%= user.birthday %><br>
+						<strong>gender</strong>: <%= user.gender %><br>
 					</p>
 
 			</div>

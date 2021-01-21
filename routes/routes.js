@@ -15,11 +15,6 @@ const facebookURL = "https://www.facebook.com/v9.0/dialog/oauth?" +
                     `&redirect_uri=${fb.redirect_uri}` +
                     `&state=${fb.state_param}`
 
-// router.use(function(req, res, next){
-//   req.app.locals.message = ''
-//   next()
-// });
-
 router.get('/', (req, res) => { res.render('home.html', { facebookLoginURL: facebookURL}) })
   
 router.get('/signup', (req, res) => res.render('signup.html', { message: '' }))

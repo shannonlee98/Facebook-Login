@@ -1,6 +1,6 @@
 const http = require ('http')
 const hostname = '127.0.0.1'
-const port = 8080
+const port = process.env.PORT || 8080
 
 const express = require('express')
 const app = express()
@@ -19,7 +19,6 @@ app.use(session({secret: 'anystringoftext',
                 resave: true,
                 cookie: { maxAge: 60000 }
             }));
-// app.use(flash(app));
 
 app.use(express.static(__dirname + '/'));
 app.set('views', __dirname + '/views');

@@ -1,9 +1,10 @@
+-- Create a new database called 'mydb'
+CREATE DATABASE mydb;
+
 -- Create a new table called 'users' in schema 'mydb'
--- Drop the table if it already exists
--- IF OBJECT_ID('mydb.user', 'U') IS NOT NULL
-DROP TABLE IF EXISTS mydb.user;
+DROP TABLE IF EXISTS user;
 -- Create the table in the specified schema
-CREATE TABLE mydb.user
+CREATE TABLE user
 (
     userid INT AUTO_INCREMENT PRIMARY KEY, -- primary key column
     localEmail VARCHAR (255),

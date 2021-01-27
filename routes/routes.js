@@ -20,7 +20,7 @@ router.get('/', (req, res) => { res.render('home.html', { facebookLoginURL: face
 router.get('/signup', (req, res) => res.render('signup.html', { message: '' }))
 router.post('/signup', (req, res) => signup(req, res))
 
-router.get('/login', (req, res) => res.render('login.html'))
+router.get('/login', (req, res) => res.render('login.html', { message: '' }))
 router.post('/login', (req, res) => login(req, res))
 
 router.get('/oauth-redirect', (req, res) => oauth(req, res))

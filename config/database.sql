@@ -1,6 +1,8 @@
 -- Create a new database called 'mydb'
 CREATE DATABASE mydb;
 
+USE mydb;
+
 -- Create a new table called 'users' in schema 'mydb'
 DROP TABLE IF EXISTS user;
 -- Create the table in the specified schema

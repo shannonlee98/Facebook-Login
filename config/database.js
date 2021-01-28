@@ -14,13 +14,14 @@ class Database {
   }
 }
 
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const db = require('./dbconfig')
 const con = mysql.createConnection({
   host: db.host,
   user: db.user,
   password: db.password,
-  database: db.database
+  database: db.database,
+  port: db.port
 })
 con.connect()
 

@@ -82,8 +82,6 @@ function insertUser(email, password) {
     if (err)
       throw err;
     console.log('SUCCESS! New user created:')
-    console.log(' Email: ' + email)
-    console.log(' Password: ' + password)
   });
 }
 

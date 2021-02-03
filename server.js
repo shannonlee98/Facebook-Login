@@ -1,5 +1,6 @@
-const http = require ('http')
-const hostname = '127.0.0.1'
+const config = require('./config/fbconfig')
+const http = require (config.protocol)
+const hostname = config.hostname
 const port = 8080
 const serverPort = 8081
 
@@ -36,5 +37,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(serverPort, hostname, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+  console.log(`Server running!`);
 });

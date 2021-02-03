@@ -19,7 +19,6 @@ async function oauthHandler (req, res) {
     // Make an API request to exchange `authCode` for an access token
     const accessToken = await axios.get(accessTokenUrl).then(res => res.data.access_token);
     // Store the token in memory for now. Later we'll store it in the database.
-    console.log('Access token is', accessToken);
     accessTokens.add(accessToken);
 
 
@@ -71,7 +70,6 @@ async function getMeHandler (req, res) {
                         `VALUES ('${data.email}', '${data.first_name} ${data.last_name}', '${data.gender}', '${data.birthday}')`;
             database.query(query).then(user => {
               console.log('SUCCESS! New user created:')
-              console.log(' Email: ' + data.email)
               req.session.user = data
               req.session.user.username = data.first_name + ' ' + data.last_name
               res.redirect('/profile')

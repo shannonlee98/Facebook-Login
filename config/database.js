@@ -21,9 +21,17 @@ const con = mysql.createConnection({
   user: db.user,
   password: db.password,
   database: db.database,
-  port: db.port
 })
-con.connect()
+
+// con.connect()
+con.query(
+    'SELECT * FROM user',
+    function(err, results, fields) {
+        if (err) throw err
+        console.log(results); // results contains rows returned by server
+        console.log(fields); // fields contains extra meta data about results, if available
+    }
+);
 
 const database = new Database(con)
 

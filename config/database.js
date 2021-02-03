@@ -23,16 +23,6 @@ const con = mysql.createConnection({
   database: db.database,
 })
 
-// con.connect()
-con.query(
-    'SELECT * FROM user',
-    function(err, results, fields) {
-        if (err) throw err
-        console.log(results); // results contains rows returned by server
-        console.log(fields); // fields contains extra meta data about results, if available
-    }
-);
-
 const database = new Database(con)
 
 module.exports = database

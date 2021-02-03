@@ -16,9 +16,9 @@
     "fb": "^2.0.0",
     "mysql2": "latest",
     "node-localstorage": "^2.1.6",
+    "nodemon": "^2.0.7",
     "url": "^0.11.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

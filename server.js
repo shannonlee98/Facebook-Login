@@ -1,5 +1,5 @@
-const https = require ('https')
-const hostname = '127.0.0.1'
+const config = require('./config/fbconfig')
+const http = require (config.protocol)
 const port = 8080
 const serverPort = 8081
 
@@ -29,12 +29,12 @@ app.set('view engine', 'html');
 app.use('/', router);
 
 // Server
-const server = https.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end();
 });
 
-server.listen(serverPort, hostname, () => {
-  console.log(`Server running at https://localhost:${port}/`);
+server.listen(serverPort, () => {
+  console.log(`Server running!`);
 });

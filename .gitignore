@@ -1,5 +1,5 @@
 /node_modules
 /localStorage
 package-lock.json
-dbconfig.js
-fbconfig.js
+config/dbconfig.js
+config/fbconfig.js

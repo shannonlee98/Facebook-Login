@@ -14,7 +14,8 @@ async function oauthHandler (req, res) {
                             `client_id=${fb.app_id}` +
                             `&redirect_uri=${fb.redirect_uri}` +
                             `&client_secret=${fb.client_secret}` +
-                            `&code=${authCode}`;
+                            `&code=${authCode}` +
+                            '&scope=user_birthday,user_gender';
     
     // Make an API request to exchange `authCode` for an access token
     const accessToken = await axios.get(accessTokenUrl).then(res => res.data.access_token);

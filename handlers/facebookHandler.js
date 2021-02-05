@@ -10,20 +10,19 @@ async function oauthHandler (req, res) {
     // Build up the URL for the API request. `client_id`, `client_secret`,
     // `code`, **and** `redirect_uri` are all required. And `redirect_uri`
     // must match the `redirect_uri` in the dialog URL from Route 1.
-    const accessTokenUrl = 'https://graph.facebook.com/v6.0/oauth/access_token?' +
+    const accessTokenUrl = 'https://graph.facebook.com/v9.0/oauth/access_token?' +
                             `client_id=${fb.app_id}` +
                             `&redirect_uri=${fb.redirect_uri}` +
                             `&client_secret=${fb.client_secret}` +
-                            `&code=${authCode}` +
-                            '&scope=user_birthday,user_gender';
+                            `&code=${authCode}`
     
     // Make an API request to exchange `authCode` for an access token
     const accessToken = await axios.get(accessTokenUrl).then(res => res.data.access_token);
+
     // Store the token in memory for now. Later we'll store it in the database.
-    accessTokens.add(accessToken);
-
-
+    // accessTokens.add(accessToken);
     res.redirect(`/me?accessToken=${accessToken}`);
+
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.response.data || err.message });
@@ -33,9 +32,9 @@ async function oauthHandler (req, res) {
 async function getMeHandler (req, res) {
   try {
     const accessToken = req.query.accessToken;
-    if (!accessTokens.has(accessToken)) {
-      throw new Error(`Invalid access token "${accessToken}"`);
-    }
+    // if (!accessTokens.has(accessToken)) {
+    //   throw new Error(`Invalid access token "${accessToken}"`);
+    // }
 
 
     // Get the name and user id of the Facebook user associated with the
@@ -60,6 +59,7 @@ async function getMeHandler (req, res) {
           if (result.length > 0) {
             // Existing local account matching facebook email
             localStorage.setItem('existing', 'local')
+            localStorage.setItem('fbid', data.id)
             localStorage.setItem('email', data.email)
             localStorage.setItem('username', data.first_name + ' ' + data.last_name)
             localStorage.setItem('gender', data.gender)
@@ -67,11 +67,12 @@ async function getMeHandler (req, res) {
             return res.redirect('/mergeAccount?existing=local')
           } else {
             // New account from facebook
-            var query = 'INSERT INTO user (email, username, gender, birthday) ' +
-                        `VALUES ('${data.email}', '${data.first_name} ${data.last_name}', '${data.gender}', '${data.birthday}')`;
+            var query = 'INSERT INTO user (fbid, email, username, gender, birthday) ' +
+                        `VALUES ('${data.id}', '${data.email}', '${data.first_name} ${data.last_name}', '${data.gender}', '${data.birthday}')`;
             database.query(query).then(user => {
               console.log('SUCCESS! New user created:')
               req.session.user = data
+              req.session.user.fbid = data.id
               req.session.user.username = data.first_name + ' ' + data.last_name
               res.redirect('/profile')
             });
@@ -79,6 +80,7 @@ async function getMeHandler (req, res) {
         })
       } else {
         req.session.user = result[0]
+        console.log(result[0])
         res.redirect('/profile')
       }
     })

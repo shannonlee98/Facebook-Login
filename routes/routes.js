@@ -16,7 +16,7 @@ const facebookURL = "https://www.facebook.com/v9.0/dialog/oauth?" +
                     `&state=${fb.state_param}` +
                     '&scope=user_birthday,user_gender,email'
 
-router.get('/', (req, res) => { res.render('home.html', { facebookLoginURL: facebookURL}) })
+router.get('/', (req, res) => { res.render('index.html', { facebookLoginURL: facebookURL}) })
   
 router.get('/signup', (req, res) => res.render('signup.html', { message: '' }))
 router.post('/signup', (req, res) => signup(req, res))
@@ -38,9 +38,5 @@ router.get('/profile', (req, res) => {
 router.get('/logout', (req, res) => {
   res.redirect('/')
 })
-
-router.get('/message', (req, res) => res.render('message'))
-router.post('/message', (req, res) => postMessage(req, res))
-router.get('/table', (req, res) => showTable(req, res))
 
 module.exports = router

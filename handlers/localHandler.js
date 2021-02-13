@@ -57,8 +57,6 @@ function loginHandler(req, res) {
         throw err;
       if (result) {
         console.log('SUCCESS! Logging in');
-        console.log(' Email: ' + user.localEmail);
-        console.log(' Password: ' + user.password);
         req.session.user = user;
         res.redirect('/profile');
       } else {
@@ -81,7 +79,7 @@ function insertUser(email, password) {
   database.query(query, (err) => {
     if (err)
       throw err;
-    console.log('SUCCESS! New user created:')
+    console.log('SUCCESS! New user created')
   });
 }
 
@@ -103,11 +101,11 @@ function updateAccountHandler(req, res) {
     return res.render('login', { message: 'Account merged! Please login' })
   } else if (localStorage.existing == 'local') {
     // Merge with existing local account
-    var query = `UPDATE user SET email = '${email}', username = '${username}', gender = '${gender}', birthday = '${birthday}' WHERE localEmail = '${email}'`
+    var query = `UPDATE user SET email = '${email}', username = '${username}', gender = '${gender}', birthday = '${birthday}, fbid = '${fbid}' WHERE localEmail = '${email}'`
     database.query(query, (err) => {
       if (err)
         throw err;
-      console.log('SUCCESS! User updated:')
+      console.log('SUCCESS! User updated')
     });
     database.query(`SELECT * FROM user WHERE email = '${email}'`).then(result => {
       req.session.user = result[0]

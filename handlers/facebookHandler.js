@@ -43,7 +43,6 @@ async function getMeHandler (req, res) {
         access_token: accessToken,
       },
     });
-    console.log(data);
 
 
     var query = `SELECT * FROM user WHERE email = '${data.email}'`
@@ -75,7 +74,6 @@ async function getMeHandler (req, res) {
         })
       } else {
         req.session.user = result[0]
-        console.log(result[0])
         res.redirect('/profile')
       }
     })

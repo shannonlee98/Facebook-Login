@@ -14,8 +14,7 @@ const facebookURL = "https://www.facebook.com/v9.0/dialog/oauth?" +
                     `client_id=${fb.app_id}` +
                     `&redirect_uri=${fb.redirect_uri}` +
                     `&state=${fb.state_param}` +
-                    '&scope=user_birthday,user_gender,public_profile'
-console.log(facebookURL)
+                    '&scope=user_birthday,user_gender,email'
 
 router.get('/', (req, res) => { res.render('home.html', { facebookLoginURL: facebookURL}) })
   

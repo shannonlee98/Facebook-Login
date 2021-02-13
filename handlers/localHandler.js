@@ -86,6 +86,7 @@ function insertUser(email, password) {
 }
 
 function updateAccountHandler(req, res) {
+  var fbid = localStorage.getItem('fbid')
   var hash = localStorage.getItem('hash')
   var email = localStorage.getItem('email')
   var username = localStorage.getItem('username')

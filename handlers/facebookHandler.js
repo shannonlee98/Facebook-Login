@@ -1,5 +1,5 @@
 const axios = require('axios');
-const accessTokens = new Set();
+// const accessTokens = new Set();
 const database = require('../config/database')
 const fb = require('../config/fbconfig')
 
@@ -20,7 +20,6 @@ async function oauthHandler (req, res) {
     const accessToken = await axios.get(accessTokenUrl).then(res => res.data.access_token);
 
     // Store the token in memory for now. Later we'll store it in the database.
-    // accessTokens.add(accessToken);
     res.redirect(`/me?accessToken=${accessToken}`);
 
   } catch (err) {
@@ -32,10 +31,6 @@ async function oauthHandler (req, res) {
 async function getMeHandler (req, res) {
   try {
     const accessToken = req.query.accessToken;
-    // if (!accessTokens.has(accessToken)) {
-    //   throw new Error(`Invalid access token "${accessToken}"`);
-    // }
-
 
     // Get the name and user id of the Facebook user associated with the
     // access token.

@@ -8,8 +8,11 @@
       body 		{ padding-top:80px; }
     </style>
     <script>
-      function loadVar() {
+      function facebookLogin() {
         location.href = '<%- facebookLoginURL %>'
+      }
+      function instaLogin() {
+        location.href = '<%- instaLoginURL %>'
       }
     </script>
   </head>
@@ -24,11 +27,15 @@
         <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
         <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a><br>
         <a 
-          onclick="loadVar()"
+          onclick="facebookLogin()"
           class="btn btn-default">
           <span class="fa fa-facebook"></span> Facebook
         </a>
-
+        <a 
+          onclick="instaLogin()"
+          class="btn btn-default">
+          <span class="fa fa-instagram"></span> Instagram
+        </a>
       </div>
 
     </div>

@@ -1,0 +1,70 @@
+const axios = require('axios')
+const https = require('https')
+const fb = require('../config/fbconfig')
+
+async function oauthHandler (req, res) {
+  const authCode = req.query.code;
+  const code = authCode.slice(0,-2)
+  console.log(authCode)
+  console.log(code)
+
+  // Build up the URL for the API request. `client_id`, `client_secret`,
+  // `code`, **and** `redirect_uri` are all required. And `redirect_uri`
+  // must match the `redirect_uri` in the dialog URL from Route 1.
+   const accessTokenUrl = 'api.instagram.com'
+
+console.log(fb.insta_id)
+
+const data = JSON.stringify({
+  client_id: '853562015498114',
+  client_secret: fb.insta_secret,
+  grant_type: "authorization_code",
+  redirect_uri: fb.insta_uri,
+  code: code
+})
+
+const options = {
+  hostname: accessTokenUrl,
+  path: `/oauth/access_token?client_id=853562015498114&client_secret=4e6fca8a4126afa4883050273585acc7&grant_type=authorization_code&redirect_uri=https://shannon.vivita.sg/&code=${code}`,
+  method: 'POST',
+ // headers: {
+   // 'Content-Type': 'application/json',
+   // 'Content-Length': data.length
+ // }
+}
+
+const request = https.request(options, response => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  response.on('data', d => {
+    process.stdout.write(d)
+  })
+})
+
+request.on('error', error => {
+  console.error(error)
+})
+
+request.write(data)
+request.end()
+
+  // Make an API request to exchange `authCode` for an access token
+/*   const accessToken = await axios({
+	method: 'post',
+	url: authCode,
+	data: {
+		client_id: fb.insta_id,
+		client_secret: fb.insta_secret,
+		grant_type: "authorization_code",
+		redirect_uri: fb.insta_uri,
+		code: authCode
+	}
+  }).then(res => res.data.access_token);
+
+  console.log(accessToken)
+*/
+}
+
+module.exports = {
+  oauthHandler
+}

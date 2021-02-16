@@ -46,8 +46,9 @@ async function oauthHandler (req, res) {
           var parsed = JSON.parse(data)
           console.log(parsed.id)
           console.log(parsed.username)
-          req.session.insta_id = parsed.id
-          req.session.insta_username = parsed.username
+          req.session.user = {}
+          req.session.user.insta_id = parsed.id
+          req.session.user.insta_username = parsed.username
           res.redirect('/profile')
         })
       }).on('error', (e) => {

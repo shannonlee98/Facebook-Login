@@ -17,6 +17,7 @@
     "mysql2": "latest",
     "node-localstorage": "^2.1.6",
     "nodemon": "^2.0.7",
+    "pm2": "^4.5.4",
     "url": "^0.11.0"
   },
   "scripts": {

@@ -1,4 +1,4 @@
-# Scratch
+# Facebook Login
 User signup and login with encryption and Facebook authentication.
 
 1. download the repo: 
